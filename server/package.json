@@ -1,0 +1,19 @@
+{
+  "name": "chat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thilee",
+  "license": "ISC",
+  "dependencies": {
+    "connect-sqlite3": "^0.9.8",
+    "express": "^4.10.2",
+    "node-uuid": "^1.4.7",
+    "request": "^2.79.0",
+    "socket.io": "^1.7.1"
+  }
+}
