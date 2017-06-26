@@ -19,11 +19,17 @@ $(document).ready(() => {
   $body = $('body');
   $head = $('head');
 
-  $chatHandlerButton = $('<div id="openChat" style="position: fixed; margin: 10px; bottom: 0; right: 0;"><img style="width: 80px;" src="//i.imgur.com/KgK49MU.png"></div>');
-  $chatHandlerButton.click(() => {
+  $chatHandlerButton = $('<div id="openChat" style="position: fixed; margin: 10px; bottom: 0; right: 0; display: flex"><div id="instantMessageWrapper"><div class="closeInstantMessage" id="closeNotification">X</div><div class="instantMessage" id="instantMessage"><div></div></div></div><div id="openChatBig"><div id="notificationNumber">1</div><img style="width: 80px;" src="http://i.imgur.com/KgK49MU.png"></div></div>');
+
+  $chatHandlerButton.find('#openChatBig').click(() => {
     $noAppContainer.show();
     hideChatHandlerButton();
     addReponsiveHeader();
+  });
+
+  $chatHandlerButton.find('#closeNotification').click(() => {
+    $chatHandlerButton.find('#instantMessageWrapper').hide();
+    hideNotificationNumber();
   });
 
   connectToNoAppSocket();
@@ -49,7 +55,7 @@ function connectToNoAppSocket() {
   if (location.protocol != 'https:') {
     proto = 'ws';
   }
-  var websock_uri = proto + '://CHANGEMEWSURI';
+  var websock_uri = proto + '://localhost:13000';
   noAppSocket = socket(websock_uri);
   console.log('Connected to', websock_uri);
   noAppSocket.emit('setup', {text: '', params: _noApp, clientcookie: getOrCreateCookie() });
@@ -63,7 +69,26 @@ function emitMessageToNoApp(message) {
 function initMessageReceiver() {
     noAppSocket.on('chat message', message => {
     displayMessageReceived(message);
+    updateInstanceMessage(message);
   });
+}
+
+function updateInstanceMessage(message) {
+  $chatHandlerButton.find('#instantMessage').text(message);
+  showInstanceMessage();
+  showNotificationNumber();
+}
+
+function showInstanceMessage() {
+  $chatHandlerButton.find('#instantMessageWrapper').show();
+}
+
+function showNotificationNumber() {
+  $chatHandlerButton.find('#notificationNumber').show();
+}
+
+function hideNotificationNumber() {
+  $chatHandlerButton.find('#notificationNumber').hide();
 }
 
 function getOrCreateCookie() {
@@ -143,7 +168,6 @@ function showChat() {
           <ul id="noAppMessages" >
           </ul>
         </div>
-        <div class="waterMark">Powered by <img src="//i.imgur.com/yAW1btr.png" border="0"> NoApp.io</div>
         <div class="inputFieldsContainer">
           <input type="text" id="noAppMessageInput" name="noAppMessage" placeholder="Type your message here..." class="noAppMessageInput" required>
           <button type="submit" class="noAppSubmitMessageButton">Send</button>

@@ -199,3 +199,43 @@
        color: #fff;
    }
 }
+
+
+.closeInstantMessage {
+  border: solid 1px;
+  border-color: red;
+  position: absolute;
+  color: black;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  left: -7px;
+  top: -8px;
+  border-radius: 77px;
+  width: 18px;
+  text-align: center;
+  background-color: #FFF;
+}
+
+.instantMessage {
+  padding: 10px;
+  margin-right: 10px;
+  background-color: #FFF;
+  border: solid 1px #555;
+  border-radius: 4px;
+}
+
+#instantMessageWrapper {
+  display: none;
+}
+
+#notificationNumber {
+  display: none;
+  position: absolute;
+  right: 0;
+  background: #FFF;
+  border: 2px red solid;
+  border-radius: 26px;
+  width: 18px;
+  top: -8px;
+  text-align: center;
+  right: -5px;
+}
