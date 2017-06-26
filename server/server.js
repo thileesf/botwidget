@@ -35,7 +35,7 @@ var id_mapping = {
 
 // each entry is 'cookie': {obj: pullstringConvObj, conv_id: id }
 // a bit hacky. need to re-visit
-var conversations = {}; 
+var conversations = {};
 
 
 
@@ -44,12 +44,12 @@ function handle_setup(msg, cb) {
 
     var prj_key = id_mapping[msg.params.app_id];
     if (prj_key === undefined) {
-        console.log('ERROR: Unsupported app_id: ' + msg.params.app_id); 
+        console.log('ERROR: Unsupported app_id: ' + msg.params.app_id);
         cb([]);
         return;
     }
-    
-    var ps_req = new PS.Request({ apiKey: prj_key.key }); 
+
+    var ps_req = new PS.Request({ apiKey: prj_key.key });
     var entry = conversations[msg.clientcookie];
 
     var conversation;
@@ -106,7 +106,7 @@ io.on('connection', function(socket) {
         handle_setup(msg, function(ret) {
             if (ret) {
                 ret.forEach(function(value) {
-                    socket.emit('chat message', value);
+                    io.emit('chat message', value);
                 });
             }
         });
@@ -122,7 +122,7 @@ io.on('connection', function(socket) {
         handle_message(msg, function(ret) {
             if (ret) {
                 ret.forEach(function(value) {
-                    socket.emit('chat message', value);
+                    io.emit('chat message', value);
                 });
             }
         });
@@ -132,7 +132,7 @@ io.on('connection', function(socket) {
 
 // A sample html page that includes the script
 app.get('/', function(req, res){
-    var html_data = '<html>' +
+    var html_data = '<html><head><meta name="viewport" content="width=device-width, initial-scale=1"></head>' +
     '<body>' +
         '<h1>A simple test to show the bot widget</h1>' +
         '<h2>Cat Ipsum</h2>' +
