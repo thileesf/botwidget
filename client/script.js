@@ -168,7 +168,6 @@ function showChat() {
           <ul id="noAppMessages" >
           </ul>
         </div>
-        <div class="waterMark">Powered by <img src="//i.imgur.com/yAW1btr.png" border="0"> NoApp.io</div>
         <div class="inputFieldsContainer">
           <input type="text" id="noAppMessageInput" name="noAppMessage" placeholder="Type your message here..." class="noAppMessageInput" required>
           <button type="submit" class="noAppSubmitMessageButton">Send</button>
